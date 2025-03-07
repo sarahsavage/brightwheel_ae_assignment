@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name:
+    description:
+    columns:
+      - name:
+        description:
+        tests:
+
+
+---here as a placeholder for structure, may not have time to fill in
