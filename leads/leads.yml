@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: enriched_leads
+    description: '{{ doc("enriched_leads") }}'
+    columns:
+      - name: sf_lead_id
+        description: id of the lead from salesforce, will be null if the lead is not in salesforce
+      - name: brightwheel_center_uuid
+        description: uuid of the center from salesforce, will be null if the lead is not in salesforce
+      - name: surrogate_key
+        description: anonymized phone number, primary identifier of the lead, used to join to downstream, no pii tables
+        tests:
+          - not_null
+          - unique
+      - name: sf_lead_source
+        description: source of the lead from salesforce, will be null if the lead is not in salesforce
+      - name: lead_origin
+        description: where the lead originated from, salesforce or another source
+      - name: sf_lead_source
+        description: source of the lead from salesforce, will be null if the lead is not in salesforce
+      - name: center_name
+        description: name of the childcare center/school attached to the lead
+      - name: sf_contact_name
+        description: name of the contact for the lead from salesforce
+      - name: sf_contact_title
+        description: title of the contact for the lead from salesforce
+      - name: sf_contact_email
+        description: email of the contact for the lead from salesforce
+      - name: s1_primary_contact
+        description: name of the primary contact from source1, could be the same or different from salesforce contact
+      - name: s1_contact_title
+        description: title of the primary contact from source1, could be the same or different from salesforce contact
+      - name: s2_primary_caregiver
+        description: name of the primary contact from source2, could be the same or different from previous
+      - name: s2_caregiver_role
+        description: role of the primary contact from source2, could be the same or different from previous
+      - name: s2_contact_email
+        description: email of the primary contact from source2, could be the same or different from salesforce email
+      - name: s3_center_email
+        description: email for the center from source3, could be the same or different from previous
+      - name: address
+        description: street or complete address of the lead
+      - name: city
+        description: city listed in address
+      - name: state
+        description: state listed in address
+      - name: country
+        description: country for the lead, primarily US
+      - name: phone
+        description: phone number for the lead. primary identifier
+        tests:
+          - not_null
+          - unique
+      - name: sf_mobile_phone
+        description: mobile phone of lead, if applicable, field only exists in salesforce
+      - name: website
+        description: website of lead, if applicaable
+      - name: center_capacity
+        description: max enrollment for the center
+      - name: credential_type
+        description: credential type of center, can be null
+      - name: credential_expiration_date
+        description: expiration date for credential
+      - name: center_type
+        description: type of center
+      - name: accepts_subsidies
+        description: 1 if the center accepts subsidies
+      - name: is_year_round
+        description: 1 if the center is year round
+      - name: star_level
+        description: star level of center
+      - name: accepts_infants
+        description: 1 if the center accepts infants
+      - name: accepts_toddlers
+        description: 1 if the center accepts toddlers
+      - name: accepts_preschool
+        description: 1 if the center accepts preschool children
+      - name: accepts_school_age
+        description: 1 if the center accepts school age children
+      - name: lead_status
+        description: status of lead in salesforce or 'New Lead' if the lead is not in salesforce
+        tests:
+          - not_null
+      - name: is_converted
+        description: 1 if the lead has been converted
+      - name: sf_lead_created_at
+        description: datetime lead was created in salesforce
+      - name: sf_lead_last_modified_at
+        description: datetime lead was last modified in salesforce
+      - name: sf_lead_last_activity_date
+        description: date lead was last interacted with from salesforce
+      - name: sf_lead_source_last_updated
+        description: date lead source was last updated in salesforce
+      - name: outreach_state
+        description: outreach stage as listed in salesforce or 'No Outreach' if lead is not yet in salesforce
+
