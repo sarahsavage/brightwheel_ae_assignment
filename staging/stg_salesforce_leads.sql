@@ -19,12 +19,12 @@ select id                                                                       
         --allows for alpha-numeric Canadian post codes
      ,country
      --for future iterations will want to add lookup tables for city/state/country mapping
-     , phone::varchar || case when phone_dup_rank > 1
-                         then '-' || phone_dup_rank::varchar
+     , phone::varchar || case when phone_dupe_rank > 1
+                         then '-' || phone_dupe_rank::varchar
                          else '' end                                                      as phone
     --just in case there are duplicate phone numbers with same address
-     , md5(phone::varchar) || case when phone_dup_rank > 1
-                                    then '-' || phone_dup_rank::varchar
+     , md5(phone::varchar) || case when phone_dupe_rank > 1
+                                    then '-' || phone_dupe_rank::varchar
                                     else '' end                                          as surrogate_key
      --anonymize phone to create non-pii version of table for wider business user
      --will want a more secure way to anonymize for future iterations
