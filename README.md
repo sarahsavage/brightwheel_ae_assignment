@@ -3,6 +3,9 @@
 - Uploaded csv files as seeds. Assuming these would actually be extracted directly from the source system (i.e. Salesforce) and therefore would be in a 'sources' folder rather than seeds
 - Staging models in staging folder would not be accessible to business-end users
 - Leads folder would eventually house additional models for lead reporting
+- I did not load my data into a sql database but did upload the csv data into a Google sheet for exploration of the raw data
+- In terms of QA, I typically do count(distinct) and count(*) on specific fields to check for expected values, check for duplicates, and add a uniqueness test in the .yml file before running dbt test
+- For future iterations would consider implementing some sort of monitoring tool such as Monte Carlo or Data Dog to ensure continued data quality and integrity
 
 # Decisions and Tradeoffs:
 - If given more time, I would have uploaded some standard lookup tables for state/country/postal code mapping. Here I did some normalization via lower/regexp_replace but it was minimal
