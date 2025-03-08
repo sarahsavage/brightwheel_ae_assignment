@@ -28,7 +28,7 @@ select id                                                                       
                                     else '' end                                          as surrogate_key
      --anonymize phone to create non-pii version of table for wider business user
      --will want a more secure way to anonymize for future iterations
-     , mobile_phone::text
+     , mobile_phone::varchar
      , email
      , website
      , lead_source
