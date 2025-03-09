@@ -5,7 +5,7 @@ with source2_leads as (select * from {{ref('source2_leads')}})
 
 select "Type License"                                                                              as license_type
      , "Company"                                                                                   as center_name
-     , case when "Accepts Subsidies" = 'Accepts Subsidies' then 1 else 0 end                       as accepts_subsidies
+     , case when "Accepts Subsidy" = 'Accepts Subsidy' then 1 else 0 end                           as accepts_subsidies
      , case when "Year Round" = 'Year Round' then 1 else 0 end                                     as is_year_round
      , case when "Daytime Hours" = 'Daytime Hours' then 1 else 0 end                               as has_daytime_hours
      , "Star Level"                                                                                as star_level
@@ -21,11 +21,11 @@ select "Type License"                                                           
      , split_part(replace("Primary Caregiver", '\n', ' '), ' ', 3) || ' ' ||
        split_part(replace("Primary Caregiver", '\n', ' '), ' ', 4)                                 as role
      --would be better to format data in csv before loading
-     , regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dup_rank > 1
-                                                              then '-' || phone_dup_rank::text
+     , regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dupe_rank > 1
+                                                              then '-' || phone_dupe_rank::varchar
                                                               else '' end                          as phone
-     , md5(regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dup_rank > 1
-                                                                  then '-' || phone_dup_rank::varchar
+     , md5(regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dupe_rank > 1
+                                                                  then '-' || phone_dupe_rank::varchar
                                                                   else '' end)                     as surrogate_key
      , "Email"                                                                                     as email
      , "Address1"                                                                                  as address
