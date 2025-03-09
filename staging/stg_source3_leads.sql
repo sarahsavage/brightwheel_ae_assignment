@@ -10,14 +10,14 @@ select "Operation"                                                              
      , "Address"                                                                                    as address
      , "City"                                                                                       as city
      , "State"                                                                                      as state
-     , "Zip"::text	                                                                                as postal_code
+     , "Zip"::varchar	                                                                            as postal_code
     --allowing for Canadian, alphanumeric postal codes
     ,"County" as county
-     , regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dup_rank > 1
-                                                              then '-' || phone_dup_rank::text
-                                                              else '' end                            as phone
-    , md5(regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dup_rank > 1
-                                                                  then '-' || phone_dup_rank::varchar
+     , regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dupe_rank > 1
+                                                              then '-' || phone_dupe_rank::varchar
+                                                              else '' end                           as phone
+    , md5(regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dupe_rank > 1
+                                                                  then '-' || phone_dupe_rank::varchar
                                                                   else '' end)                      as surrogate_key
      --anonymizing to limit PII in downstream tables
      , "Type"                                                                                       as center_type
