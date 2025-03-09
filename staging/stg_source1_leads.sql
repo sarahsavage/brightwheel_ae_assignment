@@ -16,15 +16,15 @@ select lower(regexp_replace("Name", '[^a-zA-Z0-9]', '', 'g'))                   
      ---might do in future iterations but leaving as is for now, not the primary identifier
      , "State"                                                                                   as state
      , "County"                                                                                  as county
-     , regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dup_rank > 1
-                                                              then '-' || phone_dup_rank::text
+     , regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dupe_rank > 1
+                                                              then '-' || phone_dupe_rank::varchar
                                                               else '' end                        as phone
-     , md5(regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dup_rank > 1
-                                                                  then '-' || phone_dup_rank::text
+     , md5(regexp_replace("Phone", '[^0-9]', '', 'g')::varchar || case when phone_dupe_rank > 1
+                                                                  then '-' || phone_dupe_rank::varchar
                                                                   else '' end)                   as surrogate_key
      --same comment re: anonymizing/security as other staging models
      , "First Issue Date"::date                                                                  as credential_first_issue_date
-     , "Primary Contact"                                                                         as primary_contact
+     , "Primary Contact Name"                                                                    as primary_contact
      --some wonky formatting here, sometimes two names listed, some last,first, most first last
      --may want to clean up in future iterations but prefer to force formatting at the source if possible
      , "Primary Contact Role"                                                                    as primary_contact_role
