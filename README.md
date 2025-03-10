@@ -1,5 +1,6 @@
 # Overall Approach:
 - Project folder structure aligned as closely as possible to dbt best practices. Intermediate models and specific marts not applicable to the current assignment but could be scaled up at a later date
+- Did my best to format sql in Redshift-compatible syntax. My current database is Snowflake.
 - Uploaded csv files into seed folder. Assuming these would be extracted directly from the source system (i.e. Salesforce) and therefore would be in a 'sources' folder in real project
 - Staging and seed models would not be accessible to business-end users. Assuming role-based schema permission granting is available in the given warehouse 
 - Leads folder would eventually house additional models for lead reporting, likely as one of the marts along with additional marts (customers, s
@@ -7,6 +8,7 @@
 - QA: count(distinct) and count(*) on specific fields to check for expected values (phone, center name, etc), check for duplicates, and add uniqueness/not_null tests in the .yml file before running dbt test, run final model locally/in user schema to run additional queries against.
 - For future iterations, consider implementing monitoring tool such as Monte Carlo or Data Dog to ensure continued data quality and integrity. Would also recommend a tool like fivetran for automated extraction from salesforce into warehouse if data typically comes as a csv and needs to be loaded manually.
 - If dbt cloud is a future option, consider implementing a semantic layer to ensure
+- Would consider implementing imd models into the pipeline in future iterations as additional sources are added.
 
 # Decisions and Tradeoffs:
 - If given more time, I would have uploaded some standard lookup tables for state/country/postal code mapping. Here I did some normalization via lower/regexp_replace but it was minimal
