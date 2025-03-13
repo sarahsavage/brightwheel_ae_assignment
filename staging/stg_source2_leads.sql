@@ -4,7 +4,7 @@ with source2_leads as (select * from {{ref('source2_leads')}})
                                from source2_leads)
 
 select "Type License"                                                                              as license_type
-     , "Company"                                                                                   as center_name
+     , lower(regexp_replace("Company", '[^a-zA-Z0-9]', '', 'g'))                                   as center_name
      , case when "Accepts Subsidy" = 'Accepts Subsidy' then 1 else 0 end                           as accepts_subsidies
      , case when "Year Round" = 'Year Round' then 1 else 0 end                                     as is_year_round
      , case when "Daytime Hours" = 'Daytime Hours' then 1 else 0 end                               as has_daytime_hours
